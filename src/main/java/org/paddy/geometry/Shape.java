@@ -15,7 +15,9 @@ public class Shape {
     }
 
     public static Double sphericalTriangleArea(Double[] angles) {
-        final Double angleSum = angles[0] + angles[1] + angles[2] > Math.PI ? angles[0] + angles[1] + angles[2] - Math.PI : angles[0] + angles[1] + angles[2];
+        final Double angleSum = angles[0] + angles[1] + angles[2] > Math.PI
+                ? angles[0] + angles[1] + angles[2] - Math.PI
+                : angles[0] + angles[1] + angles[2];
         System.out.println("Sum of angles: " + angleSum);
         return angleSum * Math.pow(Earth.RADIUS, 2);
     }
