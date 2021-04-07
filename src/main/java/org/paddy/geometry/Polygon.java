@@ -12,12 +12,14 @@ public class Polygon extends Shape {
 
     public Polygon(DrawObject drawObject) {
         this.drawObject = drawObject;
-        //System.out.println("Polygon");
+        // System.out.println("Polygon");
         for (Point point : drawObject.getLatLngs()) {
             // System.out.println(point.getLat() + " " + point.getLng());
             final Double[] cartesianCoordinates = new Double[3];
-            cartesianCoordinates[0] = Math.cos(DegGradRad.degToRad(point.getLat())) * Math.cos(DegGradRad.degToRad(point.getLng()));
-            cartesianCoordinates[1] = Math.cos(DegGradRad.degToRad(point.getLat())) * Math.sin(DegGradRad.degToRad(point.getLng()));
+            cartesianCoordinates[0] = Math.cos(DegGradRad.degToRad(point.getLat()))
+                    * Math.cos(DegGradRad.degToRad(point.getLng()));
+            cartesianCoordinates[1] = Math.cos(DegGradRad.degToRad(point.getLat()))
+                    * Math.sin(DegGradRad.degToRad(point.getLng()));
             cartesianCoordinates[2] = Math.sin(DegGradRad.degToRad(point.getLat()));
             allCartesianCoordinates.add(cartesianCoordinates);
         }

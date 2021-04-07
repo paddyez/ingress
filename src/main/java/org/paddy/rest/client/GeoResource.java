@@ -41,7 +41,7 @@ public class GeoResource {
                 System.out.println("Spherical triangle area:\t" + sphericalTriangleArea + " m².");
                 System.out.println("Area:\t\t\t\t" + polygon.getAreaTriangle() + " m².");
             } else {
-
+                System.out.println("Type not implemented!");
             }
         }
         return HELLO;
