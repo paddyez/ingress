@@ -1,5 +1,7 @@
 package org.paddy.rest.client;
 
+import java.math.BigDecimal;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,7 +12,6 @@ import org.paddy.geometry.Polygon;
 import org.paddy.geometry.Polyline;
 import org.paddy.geometry.Shape;
 import org.paddy.rest.dta.DrawObject;
-import org.paddy.rest.dta.Point;
 
 @Path("/ingress/geo")
 public class GeoResource {
@@ -36,9 +37,9 @@ public class GeoResource {
                 for(Double distance : distances) {
                     //System.out.println("Distance: " + distance);
                 }
-                Double[] angles = polygon.getAngles();
-                Double sphericalTriangleArea = Shape.sphericalTriangleArea(angles);
-                System.out.println("Spherical triangle area:\t" + sphericalTriangleArea + " m².");
+                BigDecimal[] angles = polygon.getAngles();
+                BigDecimal sphericalTriangleArea = Shape.sphericalTriangleArea(angles);
+                System.out.println("Spherical triangle area:\t" + sphericalTriangleArea.doubleValue() + " m².");
                 System.out.println("Area:\t\t\t\t" + polygon.getAreaTriangle() + " m².");
             } else {
                 System.out.println("Type not implemented!");

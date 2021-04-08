@@ -1,5 +1,7 @@
 package org.paddy.geometry;
 
+import java.math.BigDecimal;
+
 import org.paddy.rest.dta.Point;
 
 public class Shape {
@@ -14,11 +16,9 @@ public class Shape {
         return distance;
     }
 
-    public static Double sphericalTriangleArea(Double[] angles) {
-        final Double angleSum = angles[0] + angles[1] + angles[2] > Math.PI
-                ? angles[0] + angles[1] + angles[2] - Math.PI
-                : angles[0] + angles[1] + angles[2];
-        System.out.println("Sum of angles: " + angleSum);
-        return angleSum * Math.pow(Earth.RADIUS, 2);
+    public static BigDecimal sphericalTriangleArea(BigDecimal[] angles) {
+        final BigDecimal angleSum = angles[0].add(angles[1]).add(angles[2]).subtract(new BigDecimal(Math.PI));
+        System.out.println("Sum of angles: " + angleSum.doubleValue());
+        return angleSum.multiply(new BigDecimal(Math.pow(Earth.RADIUS, 2)));
     }
 }

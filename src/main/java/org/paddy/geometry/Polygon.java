@@ -1,5 +1,6 @@
 package org.paddy.geometry;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,15 +26,15 @@ public class Polygon extends Shape {
         }
     }
 
-    public Double[] getAngles() {
+    public BigDecimal[] getAngles() {
         int size = allCartesianCoordinates.size();
-        final Double[] scalarProductAngles = new Double[size];
+        final BigDecimal[] scalarProductAngles = new BigDecimal[size];
         for (int i = 0; i < size; i++) {
-            Double scalarProductAngle = 0d;
+            BigDecimal scalarProductAngle = new BigDecimal(0);
             Double[] one = allCartesianCoordinates.get(i);
             Double[] two = allCartesianCoordinates.get((i + 1) % size);
-            scalarProductAngle = Math.acos((one[0] * two[0] + one[1] * two[1] + one[2] * two[2]));
-            System.out.println(scalarProductAngle + " " + (one[0] * two[0] + one[1] * two[1] + one[2] * two[2]));
+            scalarProductAngle = new BigDecimal(Math.acos((one[0] * two[0] + one[1] * two[1] + one[2] * two[2])));
+            System.out.println(scalarProductAngle.doubleValue() + " " + (one[0] * two[0] + one[1] * two[1] + one[2] * two[2]));
             scalarProductAngles[i] = scalarProductAngle;
         }
         return scalarProductAngles;
