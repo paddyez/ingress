@@ -31,10 +31,13 @@ public class Polygon extends Shape {
         final BigDecimal[] scalarProductAngles = new BigDecimal[size];
         for (int i = 0; i < size; i++) {
             BigDecimal scalarProductAngle = new BigDecimal(0);
-            Double[] one = allCartesianCoordinates.get(i);
-            Double[] two = allCartesianCoordinates.get((i + 1) % size);
-            scalarProductAngle = new BigDecimal(Math.acos((one[0] * two[0] + one[1] * two[1] + one[2] * two[2])));
-            System.out.println(scalarProductAngle.doubleValue() + " " + (one[0] * two[0] + one[1] * two[1] + one[2] * two[2]));
+            Double[] a = allCartesianCoordinates.get(i);
+            Double[] b = allCartesianCoordinates.get((i + 1) % size);
+            Double[] c = allCartesianCoordinates.get((i + 2) % size);
+            BigDecimal scalarProduct = new BigDecimal(((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1]) + (b[2] - a[2]) * (c[2] - a[2])) / 2);
+            System.out.println("Scalar product: " + scalarProduct.doubleValue());
+            scalarProductAngle = new BigDecimal(Math.acos(scalarProduct.doubleValue()));
+            System.out.println("Angle: " + scalarProductAngle.doubleValue());
             scalarProductAngles[i] = scalarProductAngle;
         }
         return scalarProductAngles;
