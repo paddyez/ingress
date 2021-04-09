@@ -1,0 +1,40 @@
+\begin{equation}
+f(s)=(1-s)\cdot\vec{a}+\delta\vec{b}
+\end{equation}
+\begin{equation}
+    f`(s)=\vec{b}-\vec{a}
+\end{equation}
+K: Kugelkoordinnaten $\rightarrow$ Euklidische Kugelkoordinaten\\
+\begin{equation*}
+    K\begin{pmatrix}\theta\\\varphi\end{pmatrix}=
+    \begin{pmatrix}
+        \sin\theta\cdot\cos\varphi \\
+        \sin\theta\cdot\sin\varphi \\
+        \cos\theta
+    \end{pmatrix}
+\end{equation*}
+\begin{equation}
+    K'=
+    \begin{pmatrix}
+       \cos\theta\cdot\cos\varphi && -\sin\theta\cdot\sin\varphi \\
+       \cos\theta\cdot\sin\varphi && \sin\theta\cdot\cos\varphi \\
+       -\sin\theta && 0
+    \end{pmatrix}
+\end{equation}
+\begin{equation}
+    g'(s) = K'(f(s))\cdot f'(s)
+\end{equation}
+\begin{equation}
+    g'(a,b,s) = K'(f(a,b,s))\cdot f'(a,b,s)
+\end{equation}
+\begin{equation}
+    g'(\theta_1,\varphi_1,\theta_2,\varphi_2,s)
+\end{equation}
+\begin{equation}
+    K'(f(s))=K'
+    \begin{pmatrix}
+        (1-s)\cdot\theta_1 + \delta\cdot\theta_2 \\
+        (1-s)\cdot\varphi_1 + \delta\cdot\varphi_2
+    \end{pmatrix}
+\end{equation}
+
