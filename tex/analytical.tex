@@ -3,7 +3,7 @@
 f(s)=(1-s)\cdot\vec{a}+\delta\vec{b}
 \end{equation}
 \begin{equation}
-    f`(s)=\vec{b}-\vec{a}
+    f'(s)=\vec{b}-\vec{a}
 \end{equation}
 K: Kugelkoordinnaten $\rightarrow$ Euklidische Kugelkoordinaten\\
 given
@@ -26,7 +26,7 @@ so that
     \end{pmatrix}
 \end{equation}
 \begin{equation}
-    g'(s) = K'(f(s))\cdot f'(s)
+    g'(s) = \underbrace{K'(f(s))}_{\text{3×2 Matrix}}\cdot\underbrace{f'(s)}_{\text{2×1 Vector}}=\text{3×1 Vector}
 \end{equation}
 \begin{equation}
     g'(a,b,s) = K'(f(a,b,s))\cdot f'(a,b,s)
@@ -41,4 +41,16 @@ so that
         (1-s)\cdot\varphi_1 + \delta\cdot\varphi_2
     \end{pmatrix}
 \end{equation}
-
+given:
+\begin{equation*}
+    A\dbinom{\theta_1}{\varphi_1}, B\dbinom{\theta_2}{\varphi_2}, C\dbinom{\theta_3}{\varphi_3}
+\end{equation*}
+\begin{equation}
+    \alpha=\frac{\langle g'(A,B,0), g'(A,C,0)\rangle}{\|g'(A,B,0))\|\cdot \|g'(A,C,0)\|}
+\end{equation}
+\begin{equation}
+    \beta=\frac{\langle g'(B,A,0), g'(B,C,0)\rangle}{\|g'(B,A,0))\|\cdot \|g'(B,C,0)\|}
+\end{equation}
+\begin{equation}
+    \gamma=\frac{\langle g'(C,A,0), g'(C,B,0)\rangle}{\|g'(C,A,0))\|\cdot \|g'(C,B,0)\|}
+\end{equation}
