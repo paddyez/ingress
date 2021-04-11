@@ -1,0 +1,42 @@
+\section{Numerical solution}
+\begin{equation}
+    \frac{dK}{d\theta}\dbinom{\theta}{\varphi}=
+    \begin{pmatrix}
+        \sin\theta\cdot\cos\varphi \\
+        \sin\theta\cdot\sin\varphi \\
+        \cos\theta
+    \end{pmatrix}
+\end{equation}
+\begin{equation}
+    c_1=\frac{1}{2}
+\end{equation}
+\begin{equation}
+    v_1=K
+    \begin{pmatrix}
+        \begin{matrix}
+            \theta_a \\
+            \varphi_a
+        \end{matrix}
+        +
+        \begin{pmatrix}
+            \theta_b-\theta_a\\
+            \varphi_b-\varphi_a
+        \end{pmatrix}
+        \cdot c_1
+    \end{pmatrix} 
+    -\vec{a}
+\end{equation}
+\begin{equation}
+    c_2=\frac{c}{2}
+\end{equation}
+\begin{equation}
+    v_2=\cdots
+\end{equation}
+if
+\begin{equation}
+    \frac{\|v_2-v_1\|}{\|v_1\|}<\varepsilon
+\end{equation}
+or
+\begin{equation}
+    \frac{\langle v_2, v_1\rangle}{\|v_2\|\cdot\|v_1\|}<\varepsilon
+\end{equation}
