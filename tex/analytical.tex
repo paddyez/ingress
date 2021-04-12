@@ -1,12 +1,14 @@
-\section{Start in sperical coordnates}
+\section{Analytical solution}
+\subsection{Start in spherical coordinates}
+$f(s)$ ist die Verbindungsline zwischen den Vektoren $\vec a$ und $\vec b$. Die Ausgabe von $f$ ist ein Zweiervector $(\theta, \varphi)^T$
 \begin{equation}
-f(s)=(1-s)\cdot\vec{a}+\delta\vec{b}
+    f(s)=(1-s)\cdot\vec{a}+s\cdot\vec{b}\qquad\forall\, s \in [0,1]
 \end{equation}
 \begin{equation}
     f'(s)=\vec{b}-\vec{a}
 \end{equation}
 K: Kugelkoordinnaten $\rightarrow$ Euklidische Kugelkoordinaten\\
-given
+given:
 \begin{equation*}
     K \begin{pmatrix}\theta \\ \varphi\end{pmatrix}=
     \begin{pmatrix}
@@ -16,7 +18,7 @@ given
     \end{pmatrix}
 \end{equation*}
 \section{Retransform}
-so that
+so that:
 \begin{equation}
     K'=
     \begin{pmatrix}
@@ -26,7 +28,10 @@ so that
     \end{pmatrix}
 \end{equation}
 \begin{equation}
-    g'(s) = \underbrace{K'(f(s))}_{\text{3×2 Matrix}}\cdot\underbrace{f'(s)}_{\text{2×1 Vector}}=\text{3×1 Vector}
+    g(s)=K(f(s))
+\end{equation}
+\begin{equation}
+    g'(s) = \underbrace{K'(f(s))}_{\text{3$\times$2 Matrix}}\cdot\underbrace{f'(s)}_{\text{2$\times$1 Vector}}=\text{3$\times$1 Vector}
 \end{equation}
 \begin{equation}
     g'(a,b,s) = K'(f(a,b,s))\cdot f'(a,b,s)
@@ -37,8 +42,8 @@ so that
 \begin{equation}
     K'(f(s))=K'
     \begin{pmatrix}
-        (1-s)\cdot\theta_1 + \delta\cdot\theta_2 \\
-        (1-s)\cdot\varphi_1 + \delta\cdot\varphi_2
+        (1-s)\cdot\theta_1 + s\cdot\theta_2 \\
+        (1-s)\cdot\varphi_1 + s\cdot\varphi_2
     \end{pmatrix}
 \end{equation}
 given:
@@ -54,3 +59,56 @@ given:
 \begin{equation}
     \gamma=\frac{\langle g'(C,A,0), g'(C,B,0)\rangle}{\|g'(C,A,0))\|\cdot \|g'(C,B,0)\|}
 \end{equation}
+\begin{lstlisting}[escapechar=@]
+    def f(a, b, s) {
+        res[0] = (1-s)@$\cdot$@a[0] + s@$\cdot$@b[0]
+        res[1] = (1-s)@$\cdot$@a[1] + s@$\cdot$@b[1]
+        return res
+    }
+\end{lstlisting}
+Parameters tp representing $\theta\varphi$
+\begin{lstlisting}[escapechar=@]
+    def k'(tp) {
+        res[0, 0] = cos(tp[0])@$\cdot$@cos(tp[1])
+        res[1, 0] = cos(tp[0])@$\cdot$@sin(tp[1])
+        res[2, 0] = -sin(tp[0])
+        res[0, 1] = -sin(tp[0])@$\cdot$@sin(tp[1])
+        res[1, 1] = sin(tp[0])@$\cdot$@cos(tp[1])
+        return res
+    }
+\end{lstlisting}
+\begin{lstlisting}[escapechar=@]
+    def f'(a, b) {
+        res[0] = b[0] - a[0]
+        res[1] = b[1] - a[1]
+        retrun res
+    }
+\end{lstlisting}
+Use $f(a, b, s)$ as tp in $k'(tp)$ and multiply resulting matrix with vector $f'(a, b)$. Resulting in an 3$\times$1 Vector.
+\begin{lstlisting}[escapechar=@]
+    def g'(a, b, s) {
+        res[0] = (cos((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0])@$\cdot$@
+            cos((1-s)@$\cdot$@a[1] + s@$\cdot$@b[1]))@$\cdot$@(b[0] - a[0]) +
+            (-sin((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0])@$\cdot$@
+            sin((1-s)@$\cdot$@a[1] + s@$\cdot$@b[1]))@$\cdot$@(b[1] - a[1])
+        res[1] = (cos((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0])@$\cdot$@
+            sin((1-s)@$\cdot$@a[1] + s@$\cdot$@b[1]))@$\cdot$@(b[0] - a[0]) +
+            (sin((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0]))@$\cdot$@
+            cos((1-s)@$\cdot$@a[1] + s@$\cdot$@b[1]))@$\cdot$@(b[1] - a[1])
+        res[2] = (-sin((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0]))@$\cdot$@
+            (b[0] - a[0])
+        return res
+    }
+\end{lstlisting}
+\pagebreak
+For $s$ being $0$:
+\begin{lstlisting}[escapechar=@]
+    def g'(a, b) {
+        res[0] = cos(a[0])@$\cdot$@cos(a[1])@$\cdot$@(b[0] - a[0]) -
+            sin(a[0])@$\cdot$@sin(a[1])@$\cdot$@(b[1] - a[1])
+        res[1] = cos(a[0])@$\cdot$@sin(a[1])@$\cdot$@(b[0] - a[0]) +
+            sin(a[0])@$\cdot$@cos(a[1])@$\cdot$@(b[1] - a[1])
+        res[2] = -sin(a[0])@$\cdot$@(b[0] - a[0])
+        return res
+}
+\end{lstlisting}
