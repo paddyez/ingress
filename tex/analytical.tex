@@ -51,13 +51,13 @@ given:
     A\dbinom{\theta_1}{\varphi_1}, B\dbinom{\theta_2}{\varphi_2}, C\dbinom{\theta_3}{\varphi_3}
 \end{equation*}
 \begin{equation}
-    \alpha=\frac{\langle g'(A,B,0), g'(A,C,0)\rangle}{\|g'(A,B,0))\|\cdot \|g'(A,C,0)\|}
+    \cos(\alpha)=\frac{\langle g'(A,B,0), g'(A,C,0)\rangle}{\|g'(A,B,0))\|\cdot \|g'(A,C,0)\|}
 \end{equation}
 \begin{equation}
-    \beta=\frac{\langle g'(B,A,0), g'(B,C,0)\rangle}{\|g'(B,A,0))\|\cdot \|g'(B,C,0)\|}
+    \cos(\beta)=\frac{\langle g'(B,A,0), g'(B,C,0)\rangle}{\|g'(B,A,0))\|\cdot \|g'(B,C,0)\|}
 \end{equation}
 \begin{equation}
-    \gamma=\frac{\langle g'(C,A,0), g'(C,B,0)\rangle}{\|g'(C,A,0))\|\cdot \|g'(C,B,0)\|}
+    \cos(\gamma)=\frac{\langle g'(C,A,0), g'(C,B,0)\rangle}{\|g'(C,A,0))\|\cdot \|g'(C,B,0)\|}
 \end{equation}
 \begin{lstlisting}[escapechar=@]
     def f(a, b, s) {
@@ -85,6 +85,24 @@ Parameters tp representing $\theta\varphi$
     }
 \end{lstlisting}
 Use $f(a, b, s)$ as tp in $k'(tp)$ and multiply resulting matrix with vector $f'(a, b)$. Resulting in an 3$\times$1 Vector.
+\begin{equation*}
+    \begin{pmatrix}
+        a && b \\
+        c && d \\
+        e && f
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        u \\
+        v
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a\cdot u + b\cdot v \\
+        c\cdot u + d\cdot v \\
+        e\cdot u + f\cdot v
+    \end{pmatrix}
+\end{equation*}
 \begin{lstlisting}[escapechar=@]
     def g'(a, b, s) {
         res[0] = (cos((1-s)@$\cdot$@a[0] + s@$\cdot$@b[0])@$\cdot$@
@@ -100,7 +118,6 @@ Use $f(a, b, s)$ as tp in $k'(tp)$ and multiply resulting matrix with vector $f'
         return res
     }
 \end{lstlisting}
-\pagebreak
 For $s$ being $0$:
 \begin{lstlisting}[escapechar=@]
     def g'(a, b) {
