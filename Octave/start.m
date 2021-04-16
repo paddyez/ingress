@@ -1,8 +1,8 @@
-% Dreieck mit 3mal 90°
+% Dreieck mit 3mal 90Â°
 P1 = [0;0]        % Nordpol
-P2 = [pi/2;0]     % Äquator 1
-P3 = [pi/2;pi/2]  % Äquator 2
+P2 = [pi/2;0]     % Ã„quator 1
+P3 = [pi/2;pi/2]  % Ã„quator 2
 
-[A,angle_rad] = area([P1,P2,P3],1e-5)
+[A, angle_rad] = area([P1,P2,P3],1e-5)
 
 angle_deg = rad2deg(angle_rad)
