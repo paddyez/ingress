@@ -1,4 +1,31 @@
-\section{Numerical solution}
+\section{Start with two points}
+$f(s)$ is the direct connecting line between the vectors  $\vec a$ and $\vec b$. The output of $f$ is a two-vector $(\theta, \varphi)^T$
+\begin{equation}\label{line}
+    f(s)=(1-s)\cdot\vec{a}+s\cdot\vec{b}\qquad\forall\, s \in [0,1]
+\end{equation}
+\begin{equation}
+    f'(s)=\vec{b}-\vec{a}
+\end{equation}
+K: Spherical coordinates $\rightarrow$ euclidean coordinates\\
+given:
+\begin{equation}\label{euklid}
+    K \begin{pmatrix}\theta \\ \varphi\end{pmatrix}=
+    \begin{pmatrix}
+        \sin\theta\cdot\cos\varphi \\
+        \sin\theta\cdot\sin\varphi \\
+        \cos\theta
+    \end{pmatrix}
+\end{equation}
+so that:
+\begin{equation}
+    K'=
+    \begin{pmatrix}
+       \cos\theta\cdot\cos\varphi && -\sin\theta\cdot\sin\varphi \\
+       \cos\theta\cdot\sin\varphi && \sin\theta\cdot\cos\varphi \\
+       -\sin\theta && 0
+    \end{pmatrix}
+\end{equation}
+\subsection{Numerical solution}
 \begin{equation}
     \frac{dK}{d\theta}\dbinom{\theta}{\varphi}=
     \begin{pmatrix}
@@ -7,11 +34,12 @@
         \cos\theta
     \end{pmatrix}
 \end{equation}
+See \eqref{euklid}.
 \begin{equation}
     c_1=\frac{1}{2}
 \end{equation}
 \begin{equation}
-    v_1=K
+    v_1=\underbrace{K
     \begin{pmatrix}
         \begin{matrix}
             \theta_a \\
@@ -22,8 +50,9 @@
             \theta_b-\theta_a\\
             \varphi_b-\varphi_a
         \end{pmatrix}
-        \cdot c_1
-    \end{pmatrix} 
+        \cdot c
+    \end{pmatrix}
+    }_{\alpha}
     -\vec{a}
 \end{equation}
 \begin{equation}
@@ -33,10 +62,20 @@
     v_2=\cdots
 \end{equation}
 if
-\begin{equation}
+\begin{equation}\label{epsilon}
     \frac{\|v_2-v_1\|}{\|v_1\|}<\varepsilon
 \end{equation}
 or
 \begin{equation}
     \frac{\langle v_2, v_1\rangle}{\|v_2\|\cdot\|v_1\|}<\varepsilon
+\end{equation}
+\begin{lstlisting}[escapechar=@]
+    while(@equation: \eqref{epsilon}@ > @$\varepsilon$@) {
+        v1 = K(@… $\cdot$ @c) - @$\vec a$@
+        v2 = K(@… $\cdot$ @c/2) - @$\vec a$@
+        c = c/2;
+    }
+\end{lstlisting}
+\begin{equation}
+    \cos(\alpha)=\frac{\langle\mathrm{iter}(a,b), \mathrm{iter}(a,c)\rangle}{\|\mathrm{iter}(a,b)\|\cdot \|\mathrm{iter}(a,b)\|}
 \end{equation}

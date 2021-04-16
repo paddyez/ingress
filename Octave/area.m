@@ -1,5 +1,5 @@
 function [A, deg] = area(points,eps) % Berechnet die Fläche einer Dreiecks auf der Einheitskugel 
-                                    % gegeben durch 'points' in Kugelkoordinaten (Längen- und Breitengraden)
+                                     % gegeben durch 'points' in Kugelkoordinaten (Längen- und Breitengraden)
 deg = [0,0,0];
   for i=1:3
     % Berechnung der Tangente in A Richtung B

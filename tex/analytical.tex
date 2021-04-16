@@ -1,32 +1,5 @@
-\section{Analytical solution}
-\subsection{Start in spherical coordinates}
-$f(s)$ ist die Verbindungsline zwischen den Vektoren $\vec a$ und $\vec b$. Die Ausgabe von $f$ ist ein Zweiervector $(\theta, \varphi)^T$
-\begin{equation}
-    f(s)=(1-s)\cdot\vec{a}+s\cdot\vec{b}\qquad\forall\, s \in [0,1]
-\end{equation}
-\begin{equation}
-    f'(s)=\vec{b}-\vec{a}
-\end{equation}
-K: Kugelkoordinnaten $\rightarrow$ Euklidische Kugelkoordinaten\\
-given:
-\begin{equation*}
-    K \begin{pmatrix}\theta \\ \varphi\end{pmatrix}=
-    \begin{pmatrix}
-        \sin\theta\cdot\cos\varphi \\
-        \sin\theta\cdot\sin\varphi \\
-        \cos\theta
-    \end{pmatrix}
-\end{equation*}
-\section{Retransform}
-so that:
-\begin{equation}
-    K'=
-    \begin{pmatrix}
-       \cos\theta\cdot\cos\varphi && -\sin\theta\cdot\sin\varphi \\
-       \cos\theta\cdot\sin\varphi && \sin\theta\cdot\cos\varphi \\
-       -\sin\theta && 0
-    \end{pmatrix}
-\end{equation}
+\subsection{Analytical solution}
+Will not work because of how \eqref{line} is defined. It would have to be the line between the two points that is on the spherical surface.
 \begin{equation}
     g(s)=K(f(s))
 \end{equation}
