@@ -17,8 +17,8 @@ public class Polygon extends Shape {
         for (Point point : drawObject.getLatLngs()) {
             // System.out.println(point.getLat() + " " + point.getLng());
             final Double[] coordinates = new Double[2];
-            coordinates[0] = DegGradRad.degToRad(point.getLng());
-            coordinates[1] = DegGradRad.degToRad(point.getLat());
+            coordinates[0] = DegGradRad.degToRad(point.getLat());
+            coordinates[1] = DegGradRad.degToRad(point.getLng());
             allCoordinates.add(coordinates);
         }
     }
@@ -31,25 +31,33 @@ public class Polygon extends Shape {
             Double[] a = allCoordinates.get(i);
             Double[] b = allCoordinates.get((i + 1) % size);
             Double[] c = allCoordinates.get((i + 2) % size);
-            Double one   = (Math.cos(a[0]))*(Math.cos(a[1]))*(b[0] - a[0]);
-            Double two   = (Math.sin(a[0]))*(Math.sin(a[1]))*(b[1] - a[1]);
-            Double three = (Math.cos(a[0]))*(Math.cos(a[1]))*(c[0] - a[0]);
-            Double four  = (Math.sin(a[0]))*(Math.sin(a[1]))*(c[1] - a[1]);
-            final Double x =  (one + two) * (three + four);
-            one   = (Math.cos(a[0]))*(Math.sin(a[1]))*(b[0] - a[0]);
-            two   = (Math.sin(a[0]))*(Math.cos(a[1]))*(b[1] - a[1]);
-            three = (Math.cos(a[0]))*(Math.sin(a[1]))*(c[0] - a[0]);
-            four  = (Math.sin(a[0]))*(Math.cos(a[1]))*(c[1] - a[1]);
-            final Double y =  (one + two) * (three + four);
-            final Double z = (-Math.sin(a[0])*(b[0] - a[0])) * (-Math.sin(a[0])*(c[0] - a[0]));
-            BigDecimal scalarProduct = new BigDecimal(x + y + z / 2);
-            if(scalarProduct.doubleValue() > 1) {
-                System.out.println("Resetting scalar: " + scalarProduct.doubleValue());
-                scalarProduct = new BigDecimal(0);
+            final Double au_0 = (Math.cos(a[0])) * (Math.cos(a[1])) * (b[0] - a[0]);
+            final Double bv_0 = (-Math.sin(a[0])) * (Math.sin(a[1])) * (b[1] - a[1]);
+            final Double au_1 = (Math.cos(a[0])) * (Math.cos(a[1])) * (c[0] - a[0]);
+            final Double bv_1 = (-Math.sin(a[0])) * (Math.sin(a[1])) * (c[1] - a[1]);
+            final Double x = (au_0 + bv_0) * (au_1 + bv_1);
+            final Double cu_0 = (Math.cos(a[0])) * (Math.sin(a[1])) * (b[0] - a[0]);
+            final Double dv_0 = (Math.sin(a[0])) * (Math.cos(a[1])) * (b[1] - a[1]);
+            final Double cu_1 = (Math.cos(a[0])) * (Math.sin(a[1])) * (c[0] - a[0]);
+            final Double dv_1 = (Math.sin(a[0])) * (Math.cos(a[1])) * (c[1] - a[1]);
+            final Double y = (cu_0 + dv_0) * (cu_1 + dv_1);
+            final Double z = (-Math.sin(a[0]) * (b[0] - a[0])) * (-Math.sin(a[0]) * (c[0] - a[0]));
+
+            final Double[] aa = { Math.pow(au_0 + bv_0, 2), Math.pow(cu_0 + dv_0, 2),
+                    Math.pow(-Math.sin(a[0]) * (b[0] - a[0]), 2) };
+            final Double[] bb = { Math.pow(au_1 + bv_1, 2), Math.pow(cu_1 + dv_1, 2),
+                    Math.pow(-Math.sin(a[0]) * (c[0] - a[0]), 2) };
+
+            final Double normaa = Math.sqrt(aa[0] + aa[1] + aa[2]);
+            final Double normbb = Math.sqrt(bb[0] + bb[1] + bb[2]);
+            System.out.println("### Norm: " + normaa + "  " + normbb + " " + normaa * normbb);
+            BigDecimal scalarProduct = new BigDecimal((x + y + z) / (normaa * normbb));
+            if (scalarProduct.doubleValue() > 1) {
+                System.out.println("### Scalar product too big: ### " + scalarProduct.doubleValue());
             }
             System.out.println("Scalar product: " + scalarProduct.doubleValue());
             scalarProductAngle = new BigDecimal(Math.acos(scalarProduct.doubleValue()));
-            System.out.println("Angle: " + scalarProductAngle.doubleValue());
+            System.out.println("Angle: " + DegGradRad.radToDeg(scalarProductAngle.doubleValue()) + "°");
             scalarProductAngles[i] = scalarProductAngle;
         }
         return scalarProductAngles;
